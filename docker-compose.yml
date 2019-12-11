@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ".:/usr/src/app"
+    environment:
+      FLASK_APP: app.py
+      FLASK_ENV: development
+    command: flask run -h 0.0.0.0 --debugger
+    depends_on:
+      - redis
+
+  redis:
+    image: "redis:alpine"
+    # volumes:
+    #   - 'redis:/data'
+    hostname: redis
+    restart: always
+    expose:
+      - '6379'
+    ports:
+      - '6379:6379'
+
+  # worker:
+  #   build:
+  #     context: ./api
+  #   hostname: worker
+  #   entrypoint: celery
+  #   command: -A celery_app.celery worker --loglevel=info
+  #   volumes:
+  #     - ./api:/app
+  #   links:
+  #     - redis
+  #   depends_on:
+  #     - redis
