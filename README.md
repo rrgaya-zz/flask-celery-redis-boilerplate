@@ -1,6 +1,6 @@
-# Projeto FLask usando Celery e Redis
+# Flask com Celery e Redis
 
-Rodando
+How to run project
 
 ```bash
 $ docker-composer up -d
